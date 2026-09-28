@@ -257,11 +257,41 @@
   :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
   body { margin: 0; }
   img { max-width: 100%; }
-  .hs-wrap { margin-inline: -12px; min-height: 120px; }
+  .sform { display: grid; gap: 18px; margin-top: 4px; }
+  .sgrid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .sfield { display: grid; gap: 6px; }
+  .sfield label, .sset legend { font: 600 14px/1.3 var(--body); color: var(--ink); }
+  .req { color: var(--orange-deep); }
+  .sfield input, .sfield textarea {
+    width: 100%; font: 400 16px/1.4 var(--body); color: var(--ink);
+    background: #fff; border: 1.5px solid var(--rule); border-radius: 10px; padding: 11px 12px;
+  }
+  .sfield textarea { resize: vertical; }
+  .sfield input:focus, .sfield textarea:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(13,60,104,.15); }
+  .sfield input[aria-invalid="true"] { border-color: var(--orange-deep); }
+  .sset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .sset legend { padding: 0; margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-block; padding: 9px 14px; border-radius: 999px;
+    border: 1.5px solid var(--rule); background: #fff; color: var(--ink);
+    font: 500 14px/1.2 var(--body); transition: background .12s, border-color .12s, color .12s;
+  }
+  .chip input:checked + span { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .chip input:checked + span::before { content: "\2713  "; color: var(--orange); font-weight: 700; }
+  .chip input:focus-visible + span { outline: 3px solid var(--orange); outline-offset: 2px; }
+  .sbtn { justify-self: start; border: 0; cursor: pointer; }
+  .sbtn[disabled] { opacity: .6; cursor: progress; }
+  .serr { margin: 0; color: var(--orange-deep); font-weight: 600; font-size: 14.5px; }
+  .serr a { color: inherit; }
+  .sdone { display: grid; gap: 6px; padding: 18px; border-radius: 12px; background: #fff; border: 1.5px solid var(--rule); }
+  .sdone h3 { margin: 0; font: 700 21px/1.2 var(--display); color: var(--ink); }
+  .sdone p { margin: 0; color: var(--ink-soft); }
   .survey-alt { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
   .survey-alt a { color: var(--orange-deep); font-weight: 600; }
 </style>
-<script src="https://js.hsforms.net/forms/embed/45590718.js" defer></script>
 </head>
 <body>
 <div class="event">
@@ -405,11 +435,65 @@
       <div class="survey">
         <p class="eyebrow">60-second survey</p>
         <h2>Tell us what you think</h2>
-        <p class="survey-lede">Which of these matter to your Guidewire roadmap? Answer three quick questions and Troy will follow up after ITC with what's relevant to you.</p>
-        <div class="hs-wrap">
-          <div class="hs-form-frame" data-region="na1" data-form-id="569f41f5-ff73-4f12-9450-498120a651fe" data-portal-id="45590718"></div>
+        <p class="survey-lede">Which of these matter to your Guidewire roadmap? Answer a few quick questions and Troy will follow up after ITC with what's relevant to you.</p>
+        <form id="survey-form" class="sform" novalidate>
+          <div class="sgrid">
+            <div class="sfield">
+              <label for="f-first">First name</label>
+              <input id="f-first" name="firstname" type="text" autocomplete="given-name">
+            </div>
+            <div class="sfield">
+              <label for="f-last">Last name</label>
+              <input id="f-last" name="lastname" type="text" autocomplete="family-name">
+            </div>
+            <div class="sfield">
+              <label for="f-email">Work email <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="sfield">
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+
+          <fieldset class="sset">
+            <legend>Which BlitzenX solutions interest you?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="which_blitzenx_solutions_interest_you" value="Carrier-side program"><span>Carrier-side program</span></label>
+              <label class="chip"><input type="checkbox" name="which_blitzenx_solutions_interest_you" value="AscendX (test automation)"><span>AscendX · test automation</span></label>
+              <label class="chip"><input type="checkbox" name="which_blitzenx_solutions_interest_you" value="SubmitEdge (email &amp; document intake)"><span>SubmitEdge · email &amp; document intake</span></label>
+              <label class="chip"><input type="checkbox" name="which_blitzenx_solutions_interest_you" value="PreRate (rating accelerator)"><span>PreRate · rating accelerator</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sset">
+            <legend>Where is your Guidewire team most capacity-constrained?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="PolicyCenter"><span>PolicyCenter</span></label>
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="BillingCenter"><span>BillingCenter</span></label>
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="ClaimCenter"><span>ClaimCenter</span></label>
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="Testing &amp; Regression"><span>Testing &amp; regression</span></label>
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="Rating"><span>Rating</span></label>
+              <!-- HubSpot's stored option value keeps the original spelling -->
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="Submitssion &amp; Claims Intake"><span>Submission &amp; claims intake</span></label>
+              <label class="chip"><input type="checkbox" name="where_is_your_guidewire_team_most_capacityconstrained" value="Other"><span>Other</span></label>
+            </div>
+          </fieldset>
+
+          <div class="sfield">
+            <label for="f-msg">Anything else we should know?</label>
+            <textarea id="f-msg" name="message" rows="3"></textarea>
+          </div>
+
+          <p class="serr" id="survey-error" role="alert" hidden></p>
+          <button class="btn btn-primary sbtn" type="submit" id="survey-submit">Send to BlitzenX</button>
+          <p class="survey-alt">Your answers go to BlitzenX only. Troy will follow up after ITC.</p>
+        </form>
+
+        <div class="sdone" id="survey-done" hidden>
+          <h3>Thanks, we've got it.</h3>
+          <p>Troy will follow up after ITC with what's relevant to you. Want to lock in a time now?</p>
         </div>
-        <p class="survey-alt">Form not loading? <a href="https://r560u.share.hsforms.com/2Vp9B9f9zTxKUUEmBIKZR_g" target="_blank" rel="noopener">Open the survey in a new tab</a>.</p>
         <div class="ctas" style="margin-top:4px">
           <a class="btn btn-primary" href="https://meetings.hubspot.com/troy-towsley" target="_blank" rel="noopener">Request a meeting after ITC</a>
         </div>
@@ -467,6 +551,66 @@
   }
   wireCopy('copyEmail', 'email');
   wireCopy('copyPhone', 'phone');
+
+  (function () {
+    const PORTAL = "45590718", FORM = "569f41f5-ff73-4f12-9450-498120a651fe";
+    const FALLBACK = "https://r560u.share.hsforms.com/2Vp9B9f9zTxKUUEmBIKZR_g";
+    const form = document.getElementById("survey-form");
+    const err = document.getElementById("survey-error");
+    const btn = document.getElementById("survey-submit");
+    const done = document.getElementById("survey-done");
+    const email = document.getElementById("f-email");
+
+    function showError(html) { err.innerHTML = html; err.hidden = false; }
+    function cookie(name) {
+      const m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+      return m ? decodeURIComponent(m[1]) : undefined;
+    }
+
+    email.addEventListener("input", () => email.removeAttribute("aria-invalid"));
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      if (!email.value.trim() || !email.checkValidity()) {
+        email.setAttribute("aria-invalid", "true");
+        showError("Enter a valid work email so we can follow up.");
+        email.focus();
+        return;
+      }
+      const data = new FormData(form);
+      const fields = [];
+      for (const key of ["firstname", "lastname", "email", "phone", "message"]) {
+        const v = (data.get(key) || "").toString().trim();
+        if (v) fields.push({ objectTypeId: "0-1", name: key, value: v });
+      }
+      for (const key of ["which_blitzenx_solutions_interest_you", "where_is_your_guidewire_team_most_capacityconstrained"]) {
+        const v = data.getAll(key);
+        if (v.length) fields.push({ objectTypeId: "0-1", name: key, value: v.join(";") });
+      }
+      fields.push({ objectTypeId: "0-1", name: "event__conference_attendance", value: "ITC Vegas 2026" });
+
+      const context = { pageUri: location.href, pageName: document.title };
+      const hutk = cookie("hubspotutk");
+      if (hutk) context.hutk = hutk;
+
+      btn.disabled = true; btn.textContent = "Sending…";
+      try {
+        const res = await fetch("https://api.hsforms.com/submissions/v3/integration/submit/" + PORTAL + "/" + FORM, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fields, context })
+        });
+        if (!res.ok) throw new Error(res.status);
+        form.hidden = true;
+        done.hidden = false;
+        done.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (x) {
+        btn.disabled = false; btn.textContent = "Send to BlitzenX";
+        showError("That didn't go through. Check your connection and try again, or <a href=\"" + FALLBACK + "\" target=\"_blank\" rel=\"noopener\">use the backup form</a>.");
+      }
+    });
+  })();
 </script>
 </body>
 </html>
