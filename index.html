@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0D3C68">
+<meta name="description" content="BlitzenX at ITC Vegas 2026: the Carrier-side program, AscendX, SubmitEdge and PreRate for Guidewire carriers.">
+<meta property="og:title" content="BlitzenX at ITC Vegas 2026">
+<meta property="og:description" content="BlitzenX at ITC Vegas 2026: the Carrier-side program, AscendX, SubmitEdge and PreRate for Guidewire carriers.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D3C68'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='800' font-size='20' text-anchor='middle' fill='%23F95939'%3EX%3C/text%3E%3C/svg%3E">
+<title>BlitzenX at ITC Vegas</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+  /* Single committed look: BlitzenX navy + signal orange, matching blitzenx.com */
+  :root {
+    color-scheme: dark;
+    --navy-900: #082A4A;
+    --navy: #0D3C68;
+    --navy-700: #16507F;
+    --line: rgba(255,255,255,.14);
+    --ink-on-navy: #FFFFFF;
+    --muted-on-navy: #B9CBE0;
+    --paper: #F6F8FB;
+    --ink: #0D3C68;
+    --ink-soft: #4A6583;
+    --rule: #DCE4EE;
+    --orange: #F95939;
+    --orange-deep: #D9431F;
+    --display: "Outfit", "Segoe UI", system-ui, sans-serif;
+    --body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--navy-900);
+    color: var(--ink-on-navy);
+    font: 400 16px/1.55 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding-inline: 20px; }
+
+  /* Event strip */
+  .event {
+    background: var(--orange);
+    color: #fff;
+    font: 600 12.5px/1.3 var(--body);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .event .wrap { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: space-between; padding-block: 10px; }
+
+  /* Hero */
+  header.hero {
+    background:
+      linear-gradient(118deg, transparent 0 58%, rgba(249,89,57,.10) 58% 60%, transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-900) 100%);
+    padding-block: 28px 40px;
+  }
+  .brand { font: 800 22px/1 var(--display); letter-spacing: .04em; }
+  .brand span { color: var(--orange); }
+  .kicker {
+    margin: 34px 0 10px;
+    color: var(--muted-on-navy);
+    font: 600 12px/1.3 var(--body);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0;
+    font: 700 clamp(34px, 9vw, 54px)/1.04 var(--display);
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--orange); }
+  .lede { margin: 18px 0 0; max-width: 34em; color: var(--muted-on-navy); font-size: 17px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 999px;
+    font: 600 15px/1 var(--body); text-decoration: none;
+    transition: background .15s, border-color .15s;
+  }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: var(--orange-deep); }
+  .btn-ghost { border: 1.5px solid var(--line); color: #fff; }
+  .btn-ghost:hover { border-color: #fff; }
+
+  /* Offers */
+  section { padding-block: 40px; }
+  h2 {
+    margin: 0 0 6px;
+    font: 700 26px/1.15 var(--display);
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  .sub { margin: 0 0 22px; color: var(--muted-on-navy); }
+  .offers { display: grid; gap: 14px; }
+  .offer {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 14px;
+    padding: 22px 22px 20px;
+    display: grid;
+    gap: 10px;
+  }
+  .offer .tag {
+    justify-self: start;
+    font: 600 11px/1 var(--body);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    background: rgba(249,89,57,.12);
+    padding: 6px 9px;
+    border-radius: 999px;
+  }
+  .offer h3 { margin: 0; font: 700 21px/1.2 var(--display); text-wrap: balance; }
+  .offer p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+  .offer ul { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .offer li { position: relative; padding-left: 20px; font-size: 15px; }
+  .offer li::before {
+    content: ""; position: absolute; left: 2px; top: .5em;
+    width: 8px; height: 8px; background: var(--orange);
+    clip-path: polygon(55% 0, 0 60%, 45% 60%, 35% 100%, 100% 38%, 55% 38%);
+  }
+  .proof {
+    margin-top: 4px;
+    border-top: 1px solid var(--rule);
+    padding-top: 12px;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+  }
+  .proof b { font: 700 26px/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .proof span { font-size: 14px; color: var(--ink-soft); flex: 1 1 14em; }
+  .eyebrow {
+    margin: 0 0 8px;
+    color: var(--orange);
+    font: 600 12px/1.3 var(--body);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .pillars { display: grid; gap: 18px; }
+  .pillar { display: grid; gap: 4px; padding-left: 16px; border-left: 3px solid var(--orange); }
+  .pillar h3 { font-size: 18.5px; }
+  .pillar p { font-size: 15px; }
+  .flow {
+    margin: 2px 0 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+  }
+  .flow li {
+    position: relative;
+    font: 600 13px/1.2 var(--body);
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 7px 10px;
+  }
+  .flow li:nth-child(2) { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .flow li + li::before {
+    content: "↓"; position: absolute; left: 14px; top: -19px; line-height: 18px;
+    color: var(--orange-deep); font-weight: 700;
+  }
+  .offer a.more { font: 600 14.5px/1 var(--body); color: var(--orange-deep); text-decoration: none; }
+  .offer a.more:hover { text-decoration: underline; }
+
+  /* Guidewire scope */
+  .scope { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .scope li {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  /* Credentials */
+  .creds { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .cred { background: var(--navy-900); padding: 18px; }
+  .cred b { display: block; font: 700 28px/1 var(--display); color: #fff; font-variant-numeric: tabular-nums; }
+  .cred span { display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted-on-navy); }
+  .award {
+    margin-top: 14px;
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px 18px; border-radius: 14px;
+    background: var(--navy);
+  }
+  .award .mark { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; font: 800 16px/1 var(--display); }
+  .award p { margin: 0; font-size: 15px; color: var(--muted-on-navy); }
+  .award p strong { color: #fff; font-weight: 600; }
+
+  /* Question */
+  .question {
+    border-left: 3px solid var(--orange);
+    padding: 4px 0 4px 18px;
+    font: 600 clamp(22px, 5.6vw, 28px)/1.25 var(--display);
+    text-wrap: balance;
+    margin: 0;
+  }
+  .question + p { margin: 14px 0 0; color: var(--muted-on-navy); }
+
+  /* Contact */
+  .contact { background: var(--navy); border-radius: 18px; padding: 24px 22px; display: grid; gap: 16px; }
+  .contact h2 { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .email {
+    font: 600 18px/1.2 var(--body);
+    user-select: all;
+    word-break: break-all;
+  }
+  .copy {
+    border: 1.5px solid var(--line); background: transparent; color: #fff;
+    border-radius: 999px; padding: 8px 14px; font: 600 13px/1 var(--body); cursor: pointer;
+  }
+  .copy:hover { border-color: #fff; }
+  .where { margin: 0; font-size: 14px; color: var(--muted-on-navy); }
+  .survey {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 18px;
+    padding: 26px 22px;
+    display: grid;
+    gap: 12px;
+    border-top: 5px solid var(--orange);
+  }
+  .survey h2 { margin: 0; }
+  .survey .eyebrow { margin: 0; color: var(--orange-deep); }
+  .survey-lede { margin: 0; color: var(--ink-soft); }
+  .survey-qs { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: q; }
+  .survey-qs li { counter-increment: q; display: flex; gap: 10px; align-items: baseline; font-size: 15px; }
+  .survey-qs li::before {
+    content: counter(q); flex: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: inline-grid; place-items: center;
+    background: var(--navy); color: #fff; font: 700 12px/1 var(--body);
+  }
+  .btn-ghost-ink { border: 1.5px solid var(--rule); color: var(--ink); }
+  .btn-ghost-ink:hover { border-color: var(--ink); }
+  .person { display: grid; gap: 2px; }
+  .person p { margin: 0; }
+  .person-name { font: 700 22px/1.2 var(--display); }
+  .person-role { font-size: 14px; color: var(--orange); font-weight: 600; letter-spacing: .02em; }
+
+  footer { padding-block: 26px 36px; font-size: 13px; color: var(--muted-on-navy); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; }
+
+  @media (min-width: 640px) {
+    .offer { padding: 26px 28px 24px; }
+    section { padding-block: 52px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<style>
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  .hs-wrap { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 16px; min-height: 120px; }
+  .survey-alt { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+  .survey-alt a { color: var(--orange-deep); font-weight: 600; }
+</style>
+<script src="https://js.hsforms.net/forms/embed/45590718.js" defer></script>
+</head>
+<body>
+<div class="event">
+  <div class="wrap">
+    <span>ITC Vegas 2026</span>
+    <span>Mandalay Bay · Sep 29 – Oct 1</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand" aria-label="BlitzenX">BLITZEN<span>X</span></div>
+    <p class="kicker">Guidewire only · P&amp;C only</p>
+    <h1>More Guidewire capacity, <em>working for you.</em></h1>
+    <p class="lede">BlitzenX is a 100% Guidewire system integrator for P&amp;C carriers. At ITC Vegas we're showing our Carrier-side program and three Guidewire accelerators: AscendX, SubmitEdge and PreRate.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="https://meetings.hubspot.com/troy-towsley" target="_blank" rel="noopener">Book a meeting after ITC</a>
+      <a class="btn btn-ghost" href="#survey">Take the 60-second survey</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="offers">
+    <div class="wrap">
+      <p class="eyebrow">What we offer</p>
+      <h2>The Carrier-side program</h2>
+      <p class="sub">A Guidewire team that works for your carrier, not for a vendor.</p>
+
+      <div class="offers">
+        <article class="offer">
+          <div class="pillars">
+            <div class="pillar">
+              <h3>Your internal team, no vendor dependency</h3>
+              <p>Every engineer works as part of your team, under your leadership and on your hours, onsite or blended.</p>
+            </div>
+            <div class="pillar">
+              <h3>6+ years of Guidewire in every role</h3>
+              <p>Business analysts, developers and QA engineers, each with 6+ years of hands-on Guidewire work.</p>
+            </div>
+            <div class="pillar">
+              <h3>An IP-driven team</h3>
+              <p>Our engineers bring BlitzenX solutions to the job, so business problems get solved with working technology.</p>
+            </div>
+          </div>
+          <div class="proof">
+            <b>0 → 10+</b>
+            <span>engineers in 4 months at a recent Guidewire post-cloud-migration customer. The carrier now owns its platform end to end.</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="solutions">
+    <div class="wrap">
+      <p class="eyebrow">Our solutions</p>
+      <h2>Built by BlitzenX, only for Guidewire</h2>
+      <p class="sub">Three accelerators we can demo at ITC.</p>
+
+      <div class="offers">
+        <article class="offer">
+          <span class="tag">Test automation</span>
+          <h3>AscendX</h3>
+          <p>Automation testing suite for Guidewire. Regression runs across PolicyCenter, ClaimCenter and BillingCenter without the manual effort.</p>
+          <div class="proof">
+            <b>80%+</b>
+            <span>less regression effort. Live at a carrier today.</span>
+          </div>
+          <a class="more" href="https://blitzenx.com/ascendx" target="_blank" rel="noopener">See AscendX →</a>
+        </article>
+
+        <article class="offer">
+          <span class="tag">Email &amp; document intake</span>
+          <h3>SubmitEdge</h3>
+          <p>Reads underwriting and claims documents attached to emails in Outlook and moves them into Guidewire, so nobody re-keys a submission or a first notice of loss.</p>
+          <ol class="flow" aria-label="SubmitEdge flow">
+            <li>Outlook email + attachments</li>
+            <li>SubmitEdge</li>
+            <li>PolicyCenter / ClaimCenter</li>
+          </ol>
+        </article>
+
+        <article class="offer">
+          <span class="tag">Rating accelerator</span>
+          <h3>PreRate</h3>
+          <p>Build rate tables and rate routine changes, then validate them before they hit Guidewire. Rating errors get caught before deployment, not in production.</p>
+          <ol class="flow" aria-label="PreRate flow">
+            <li>Rate tables &amp; routines</li>
+            <li>PreRate validation</li>
+            <li>Guidewire</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Where we work in Guidewire</h2>
+      <p class="sub">Implementation, upgrades and production support across the suite.</p>
+      <ul class="scope">
+        <li>PolicyCenter</li>
+        <li>ClaimCenter</li>
+        <li>BillingCenter</li>
+        <li>Guidewire Cloud migration</li>
+        <li>Version upgrades</li>
+        <li>Digital portals</li>
+        <li>Production support</li>
+        <li>Rating &amp; rate routines</li>
+        <li>Test automation</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Who you'd be working with</h2>
+      <p class="sub">Born in the Guidewire ecosystem. Delivery centers in Austin and Hyderabad.</p>
+      <div class="creds">
+        <div class="cred"><b>&gt;70%</b><span>Guidewire Cloud certified</span></div>
+        <div class="cred"><b>85%</b><span>of the team are developers</span></div>
+        <div class="cred"><b>24/7</b><span>US + India delivery</span></div>
+      </div>
+      <div class="award">
+        <div class="mark" aria-hidden="true">★</div>
+        <p><strong>Major Contender, Everest Group Guidewire Services PEAK Matrix® 2026.</strong> Recognized for market impact, vision and delivery. <a href="https://blitzenx.com/press-releases/everest-group-2026" target="_blank" rel="noopener">Read the release</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="question">Going into 2027, where is your Guidewire team capacity-constrained?</p>
+      <p>That's the conversation we want to have at ITC. If the answer is "nowhere," we'd like to hear that too.</p>
+    </div>
+  </section>
+
+  <section id="survey">
+    <div class="wrap">
+      <div class="survey">
+        <p class="eyebrow">60-second survey</p>
+        <h2>Tell us what you think</h2>
+        <p class="survey-lede">Which of these matter to your Guidewire roadmap? Answer three quick questions and Troy will follow up after ITC with what's relevant to you.</p>
+        <div class="hs-wrap">
+          <div class="hs-form-frame" data-region="na1" data-form-id="569f41f5-ff73-4f12-9450-498120a651fe" data-portal-id="45590718"></div>
+        </div>
+        <p class="survey-alt">Form not loading? <a href="https://r560u.share.hsforms.com/2Vp9B9f9zTxKUUEmBIKZR_g" target="_blank" rel="noopener">Open the survey in a new tab</a>.</p>
+        <div class="ctas" style="margin-top:4px">
+          <a class="btn btn-primary" href="https://meetings.hubspot.com/troy-towsley" target="_blank" rel="noopener">Request a meeting after ITC</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Meet BlitzenX in Vegas</h2>
+        <div class="person">
+          <p class="person-name">Troy Towsley</p>
+          <p class="person-role">Managing Partner</p>
+        </div>
+        <div class="row">
+          <span class="email" id="email">ttowsley@blitzenx.com</span>
+          <button class="copy" id="copyEmail" type="button">Copy email</button>
+        </div>
+        <div class="row">
+          <span class="email" id="phone">904-654-6086</span>
+          <button class="copy" id="copyPhone" type="button">Copy number</button>
+        </div>
+        <p class="where">Mandalay Bay, Las Vegas · Sep 29 – Oct 1, 2026. Book time with Troy for a follow-up after the show.</p>
+        <div class="ctas" style="margin-top:0">
+          <a class="btn btn-primary" href="https://meetings.hubspot.com/troy-towsley" target="_blank" rel="noopener">Pick a time with Troy</a>
+          <a class="btn btn-ghost" href="https://blitzenx.com" target="_blank" rel="noopener">blitzenx.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BlitzenX Solutions · 100% P&amp;C insurance focused</span>
+    <span>Austin, TX · Hyderabad, TS</span>
+  </div>
+</footer>
+
+<script>
+  function wireCopy(btnId, targetId) {
+    const btn = document.getElementById(btnId);
+    const label = btn.textContent;
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(targetId);
+      const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = label, 1800); };
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents(el);
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected, press copy';
+      };
+      try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (e) { fallback(); }
+    });
+  }
+  wireCopy('copyEmail', 'email');
+  wireCopy('copyPhone', 'phone');
+</script>
+</body>
+</html>
